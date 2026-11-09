@@ -1,0 +1,53 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Minuit Choix Publisher</title><link rel="stylesheet" href="style.css">
+<style>
+.step{display:none}.step.on{display:block}.btn{display:inline-flex;align-items:center;gap:10px;border:0;border-radius:10px;padding:12px 18px;font:700 1rem system-ui;cursor:pointer;background:#fff;color:#111}
+.btn.red{background:var(--red);color:#fff}.btn[disabled]{opacity:.35;cursor:not-allowed}
+.grid{display:grid;grid-template-columns:220px 1fr;gap:20px}@media(max-width:640px){.grid{grid-template-columns:1fr}}
+video{width:100%;border-radius:12px;background:#000;aspect-ratio:9/16}label{display:block;font-weight:700;margin:14px 0 6px}
+textarea,select{width:100%;background:#0f0f15;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit}
+.row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.sw{width:44px;height:24px;border-radius:12px;background:#3a3a46;position:relative;cursor:pointer;flex:none}.sw::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s}
+.sw.on{background:var(--green)}.sw.on::after{left:23px}.who{display:flex;align-items:center;gap:10px}.av{width:40px;height:40px;border-radius:50%;background:#111;border:2px solid var(--red);display:grid;place-items:center;font-weight:900}
+.note{font-size:.85rem;color:var(--mute)}.bar{height:10px;background:#2a2a35;border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--green);transition:width .4s}
+.tag{display:inline-block;background:#2a2a35;border-radius:6px;padding:2px 8px;font-size:.8rem;margin-left:6px}
+</style></head><body><div class="wrap">
+<div class="brand"><span class="dot"></span>MINUIT CHOIX PUBLISHER</div>
+<nav><a href="index.html">Home</a><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a></nav>
+
+<section class="step on" id="s1"><h1>Publish to TikTok</h1>
+<p>Connect the @minuit.choix TikTok account to publish the latest episode.</p>
+<button class="btn" id="login">♪ Continue with TikTok</button>
+<p class="note">You will be redirected to tiktok.com to sign in and approve the permissions <code>user.info.basic</code> and <code>video.publish</code>.</p></section>
+
+<section class="step" id="s2"><h1>New post</h1>
+<div class="grid"><div><video id="vid" muted playsinline loop></video><p class="note" id="dur"></p></div>
+<div>
+<div class="who"><div class="av">MC</div><div><b id="nick">minuit.choix</b><div class="note">Posting to this TikTok account</div></div></div>
+<label for="cap">Caption</label><textarea id="cap" rows="4"></textarea>
+<label for="priv">Who can view this video <span class="tag">required</span></label>
+<select id="priv"><option value="">Select privacy…</option><option>Everyone</option><option>Followers</option><option>Only me</option></select>
+<label>Allow users to</label>
+<div class="row">Comment<span class="sw" data-k="comment"></span></div>
+<div class="row">Duet<span class="sw" data-k="duet"></span></div>
+<div class="row">Stitch<span class="sw" data-k="stitch"></span></div>
+<label>Content disclosure</label>
+<div class="row">AI-generated content<span class="sw" id="ai"></span></div>
+<div class="row">Disclose commercial content<span class="sw" id="comm"></span></div>
+<p class="note" id="decl">By posting, you agree to TikTok's <a href="https://www.tiktok.com/legal/page/global/music-usage-confirmation/en" target="_blank">Music Usage Confirmation</a>.</p>
+<button class="btn red" id="post" disabled>Post</button>
+</div></div></section>
+
+<section class="step" id="s3"><h1 id="st">Uploading…</h1><div class="bar"><i id="pb"></i></div>
+<p class="note" id="sn">Sending the video to TikTok. It may take a few minutes for the post to appear on your profile.</p></section>
+
+<footer>Minuit Choix · Videos are only posted after the creator confirms.</footer></div>
+<script>
+const $=id=>document.getElementById(id),Q=new URLSearchParams(location.search);
+const EP={video:Q.get('v')||'',caption:Q.get('c')||"La radio a la voix de ta mère… mais ta mère est à côté de toi 😨 Ép.1 DERNIER SIGNAL · Écris A ou B ! 🅰️ Tu ouvres la porte 🅱️ Tu réponds à la radio\n#histoireinteractive #horreur #creepypasta #tudecides #fyp"};
+function go(n){document.querySelectorAll('.step').forEach(s=>s.classList.toggle('on',s.id==='s'+n))}
+$('login').onclick=()=>{go(2);if(EP.video){$('vid').src=EP.video;$('vid').play()}$('cap').value=EP.caption;$('dur').textContent='Vertical 1080×1920 · MP4'};
+document.querySelectorAll('.sw').forEach(s=>s.onclick=()=>{s.classList.toggle('on');check()});
+$('priv').onchange=check;function check(){$('post').disabled=!$('priv').value}
+$('post').onclick=()=>{go(3);let p=0;const it=setInterval(()=>{p+=12;$('pb').style.width=Math.min(p,100)+'%';
+  if(p>=60)$('st').textContent='Processing…';if(p>=100){clearInterval(it);$('st').textContent='Published ✓';$('sn').textContent='Your video was sent to TikTok. It will appear on @minuit.choix shortly.'}},400)};
+</script></body></html>
