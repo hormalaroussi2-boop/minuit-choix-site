@@ -45,7 +45,7 @@ textarea,select{width:100%;background:#0f0f15;color:var(--ink);border:1px solid 
 <footer>Minuit Choix · Videos are only posted after the creator confirms.</footer></div>
 <script>
 const $=id=>document.getElementById(id),Q=new URLSearchParams(location.search);
-const EP={video:Q.get('v')||'',caption:Q.get('c')||"La radio a la voix de ta mère… mais ta mère est à côté de toi 😨 Ép.1 DERNIER SIGNAL · Écris A ou B ! 🅰️ Tu ouvres la porte 🅱️ Tu réponds à la radio\n#histoireinteractive #horreur #creepypasta #tudecides #fyp"};
+const EP={video:Q.get('v')||'episode.mp4',caption:Q.get('c')||"La radio a la voix de ta mère… mais ta mère est à côté de toi 😨 Ép.1 DERNIER SIGNAL · Écris A ou B ! 🅰️ Tu ouvres la porte 🅱️ Tu réponds à la radio\n#histoireinteractive #horreur #creepypasta #tudecides #fyp"};
 function go(n){document.querySelectorAll('.step').forEach(s=>s.classList.toggle('on',s.id==='s'+n))}
 const CLIENT_KEY='SBAWTN2y1vgwg9BC6A',REDIRECT='https://hormalaroussi2-boop.github.io/minuit-choix-site/publish.html';
 function openPost(){go(2);if(EP.video){$('vid').src=EP.video;$('vid').play()}$('cap').value=EP.caption;$('dur').textContent='Vertical 1080×1920 · MP4'}
