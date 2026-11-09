@@ -20,6 +20,7 @@ textarea,select{width:100%;background:#0f0f15;color:var(--ink);border:1px solid 
 <p class="note">You will be redirected to tiktok.com to sign in and approve the permissions <code>user.info.basic</code>, <code>video.publish</code> and <code>video.upload</code>.</p></section>
 
 <section class="step" id="s2"><h1>New post</h1>
+<div class="card" id="conn" style="display:none;border-color:#22b35a"><b>Connected with TikTok ✓</b><div class="note">Connection code for the Minuit Choix server:</div><button class="btn" id="cp" style="margin:8px 0">Copy code</button><br><code id="code" style="word-break:break-all"></code></div>
 <div class="grid"><div><video id="vid" muted playsinline loop></video><p class="note" id="dur"></p></div>
 <div>
 <div class="who"><div class="av">MC</div><div><b id="nick">minuit.choix</b><div class="note">Posting to this TikTok account</div></div></div>
@@ -36,7 +37,7 @@ textarea,select{width:100%;background:#0f0f15;color:var(--ink);border:1px solid 
 <p class="note" id="decl">By posting, you agree to TikTok's <a href="https://www.tiktok.com/legal/page/global/music-usage-confirmation/en" target="_blank">Music Usage Confirmation</a>.</p>
 <button class="btn red" id="post" disabled>Post</button> <button class="btn" id="draft">Send to TikTok drafts</button>
 <p class="note">"Post" publishes directly (video.publish). "Send to TikTok drafts" puts the video in your TikTok inbox to edit and post from the app (video.upload).</p>
-<div class="card" id="conn" style="display:none"><b>Connected with TikTok ✓</b><div class="note">Connection code for the Minuit Choix server:</div><code id="code" style="word-break:break-all"></code></div>
+
 </div></div></section>
 
 <section class="step" id="s3"><h1 id="st">Uploading…</h1><div class="bar"><i id="pb"></i></div>
@@ -51,7 +52,7 @@ const CLIENT_KEY='SBAWTN2y1vgwg9BC6A',REDIRECT='https://hormalaroussi2-boop.gith
 function openPost(){go(2);if(EP.video){$('vid').src=EP.video;$('vid').play()}$('cap').value=EP.caption;$('dur').textContent='Vertical 1080×1920 · MP4'}
 $('login').onclick=()=>{const st=Math.random().toString(36).slice(2);sessionStorage.setItem('st',st);
   location.href='https://www.tiktok.com/v2/auth/authorize/?client_key='+CLIENT_KEY+'&scope=user.info.basic,video.publish,video.upload&response_type=code&redirect_uri='+encodeURIComponent(REDIRECT)+'&state='+st};
-if(Q.get('code')){openPost();$('conn').style.display='block';$('code').textContent=Q.get('code')}
+if(Q.get('code')){openPost();$('conn').style.display='block';$('code').textContent=Q.get('code');$('cp').onclick=()=>{navigator.clipboard.writeText(Q.get('code'));$('cp').textContent='Copied ✓'}}
 else if(Q.get('error')){document.querySelector('#s1 .note').textContent='TikTok sign-in was cancelled: '+Q.get('error_description')}
 else if(Q.get('demo'))openPost();
 document.querySelectorAll('.sw').forEach(s=>s.onclick=()=>{s.classList.toggle('on');check()});
